@@ -1,0 +1,54 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:tiles="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+    <title tiles:fragment="title">PAO | Review Intake Submission</title>
+  
+   	<!-- header that links to foundation css -->
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../static/foundation/css/foundation.css" />
+    <script src="../static/foundation/js/vendor/modernizr.js"></script>
+	<!-- end of header that links to foundation css -->
+  
+</head>
+  <body>
+  	<header>
+		<nav sec:authorize="hasRole('AUTHENTICATED_USER_AUTHORITY')">
+			<a href="../homepage" class="small button">Home</a>
+			<a sec:authorize="hasAnyRole('customer','employee','veterinarian')" href="submit" class="small button">Submit pet for adoption</a>
+			<a sec:authorize="hasAnyRole('employee')" href="view-intake-submissions" class="small button">View Intake Submissions</a>
+			<a sec:authorize="hasAnyRole('employee','veterinarian')" href="animal-list" class="small button">Animal Care Record</a>
+		</nav>
+	</header>
+	
+    <div tiles:fragment="content">
+		<form>
+			<h1>View Intake Submissions</h1>
+			
+			<p>This is a list of all intake submission applications.</p>
+  
+		    <table>
+		      <tr>
+		        <th>Application ID</th>
+		        <th>Customer ID</th>
+		        <th>Animal ID</th>
+		        <th>Date Submitted</th>
+		        <th>Application Status</th>
+		        <th>Action</th>
+		      </tr>
+		      <tr th:each="sub : ${submissionApplications}">
+		        <td th:text="${sub.id}"></td>
+		        <td th:text="${sub.customer_id}"></td>
+		        <td th:text="${sub.animal_id}"></td>
+		        <td th:text="${sub.date_submitted}"></td>
+		        <td th:text="${sub.application_status}"></td>
+		        <td><a th:href="@{'/review-intake-submission/' + ${sub.id}}">View Application</a></td>
+		      </tr>
+		    </table>
+		    
+		    
+		</form>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,98 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+	<title>PAO | Daily Care Record</title>
+
+ 	<!-- header that links to foundation css -->
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../static/foundation/css/foundation.css" />
+    <script src="../static/foundation/js/vendor/modernizr.js"></script>
+	<!-- end of header that links to foundation css -->
+
+</head>
+
+<body>
+	<header>
+		<nav sec:authorize="hasRole('AUTHENTICATED_USER_AUTHORITY')">
+			<a href="../homepage" class="small button">Home</a>
+			<a sec:authorize="hasAnyRole('customer','employee','veterinarian')" href="../submit" class="small button">Submit pet for adoption</a>
+			<a sec:authorize="hasAnyRole('employee')" href="../view-intake-submissions" class="small button">View Intake Submissions</a>
+			<a sec:authorize="hasAnyRole('employee','veterinarian')" href="../animal-list" class="small button">Animal Care Record</a>
+		</nav>
+	</header>
+<form th:action="@{/animal-care/{id}(id=${animal.id} )}" method="post">
+
+
+<!-- this is the start of the group of columns -->		
+	
+<div class="row">
+	
+<!--Fields Column
+////////////////////////////////////////////////////////-->
+     
+     <div class="large-12 medium-12 columns">
+
+			<fieldset>
+			<!-- Animal Information
+			 ////////////////////////////////////////////////////////-->
+			<legend>Animal Information:</legend>
+			<div class="row">
+			
+				<div th:text="${animal.name}" class="large-7 medium-7 columns">
+				</div>
+			
+				<div th:text="${animal.animal_type}" class="large-5 medium-5 columns">
+				</div>
+			</div>
+			</fieldset>
+			
+<!-- Animal Information
+////////////////////////////////////////////////////////-->
+			
+		<fieldset>
+			<legend>Animal Care:</legend>
+			<div class="row">
+				
+				<div class="large-6 medium-6 columns">
+					<label for="care_date">Date Submitted<input required="required"
+					name="care_date" id="care_date" type="date"/>
+					</label>
+				</div>
+				
+				<div class="large-12 columns">
+					<label for="care_notes">Care Log
+					</label>
+					<textarea name="care_notes"></textarea>
+				</div>
+				
+			
+			</div>
+		</fieldset>
+	  
+<!-- end fields column
+////////////////////////////////////////////////////////-->
+
+	  
+<!--Buttons Column 
+////////////////////////////////////////////////////////-->
+    <div class="large-4 medium-4 columns">
+
+	<a> <button class="small button" id="submit" type="submit">Submit</button></a><br/>
+	<a> <button class="small alert button" type="submit">Cancel</button></a>
+
+
+	</div>
+<!-- end Buttons Column
+////////////////////////////////////////////////////// -->
+	  
+
+	  
+</div>	  
+<!-- end group of columns -->		
+</div>
+	
+</form>
+</body>
+</html>

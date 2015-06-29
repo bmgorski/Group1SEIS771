@@ -1,0 +1,153 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:tiles="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+    <title tiles:fragment="title">PAO | Review Intake Submission</title>
+  
+   	<!-- header that links to foundation css -->
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../static/foundation/css/foundation.css" />
+    <script src="../static/foundation/js/vendor/modernizr.js"></script>
+	<!-- end of header that links to foundation css -->
+  
+</head>
+  <body>
+  	<header>
+		<nav sec:authorize="hasRole('AUTHENTICATED_USER_AUTHORITY')">
+			<a href="../homepage" class="small button">Home</a>
+			<a sec:authorize="hasAnyRole('customer','employee','veterinarian')" href="../submit" class="small button">Submit pet for adoption</a>
+			<a sec:authorize="hasAnyRole('employee')" href="../view-intake-submissions" class="small button">View Intake Submissions</a>
+			<a sec:authorize="hasAnyRole('employee','veterinarian')" href="../animal-list" class="small button">Animal Care Record</a>
+		</nav>
+	</header>
+    <div tiles:fragment="content">
+	<form action="#" th:action="@{/review-intake-submission/} + ${reviewResourceModel.submissionApplication.id}" method="post">
+		<div class="row"> <!-- header -->
+     	<div class="large-12 columns">
+		<p>Review Intake Submission</p>
+		<hr /> <!-- this is just a line -->
+			<p th:if="${reviewResourceModel.submissionApplication.isPending()}">
+ 				This submission application is pending. Please review the following submission application and approve or reject it.</p>
+			<p th:if="${reviewResourceModel.submissionApplication.isApproved()}">
+ 				This submission application has been approved.  Please indicate below if the animal has been received and choose a facility.</p>
+			<p th:if="${reviewResourceModel.submissionApplication.isRejected()}">
+ 				This submission application has been rejected.</p>
+			<p th:if="${reviewResourceModel.submissionApplication.isApprovedReceived()}">
+ 				This submission application has been approved and the animal has been received.</p>
+      	</div>
+   		</div> <!-- end header -->
+  		
+<div class="row">
+      <div class="large-8 medium-8 columns"> <!--Fields Column -->
+	 </div> 
+		<fieldset>
+			<legend>Animal Information:</legend>
+			
+			<div class="large-12 medium-12 columns">
+				<label for="name">Name</label>
+				<p th:text="${reviewResourceModel.animal.name}"/>
+			</div>
+			
+			<div class="large-12 medium-12 columns">
+				<label for="name">Animal Type</label>
+				<p th:text="${reviewResourceModel.animal.animal_type}"/>
+			</div>
+
+			<div class="large-12 medium-12 columns">
+				<label for="name">Date of Birth</label>
+				<p th:text="${reviewResourceModel.animal.birthdate}"/>
+			</div>
+			
+			<div class="large-12 medium-12 columns">
+				<label for="name">Weight</label>
+				<p th:text="${reviewResourceModel.animal.weight}"/>
+			</div>
+			
+			<div class="large-12 medium-12 columns">
+				<label for="name">Notes</label>
+				<p th:text="${reviewResourceModel.animal.notes}"/>
+			</div>
+			
+			<div class="large-12 medium-12 columns">
+				<label for="name">Breed</label>
+				<p th:text="${reviewResourceModel.animal.breed}"/>
+			</div>
+			
+			<div class="large-12 medium-12 columns">
+				<label for="name">Size</label>
+				<p th:text="${reviewResourceModel.animal.animal_size}"/>
+			</div>
+									
+			<div class="large-12 medium-12 columns">
+				<label for="name">Date Submitted</label>
+				<p th:text="${reviewResourceModel.submissionApplication.date_submitted}"/>
+			</div>
+			
+			<div class="large-12 medium-12 columns">
+				<label for="name">Reported Condition</label>
+				<p th:text="${reviewResourceModel.submissionApplication.reported_condition}"/>
+			</div>
+			
+			<div class="large-12 medium-12 columns">
+				<label for="name">Requests</label>
+				<p th:text="${reviewResourceModel.submissionApplication.requests}"/>
+			</div>
+			
+		</fieldset>
+	  <!-- end fields column -->
+		
+	  
+	<!--Buttons Column -->
+    <div class="large-12 medium-12 columns" th:if="not ${reviewResourceModel.submissionApplication.isApprovedReceived()}">
+    <div class="large-12 medium-12 columns" th:if="not ${reviewResourceModel.submissionApplication.isRejected()}">
+
+		<div class="large-12 medium-12 columns" th:if="${reviewResourceModel.submissionApplication.isPending()}">
+			<input type="radio" name="action" value="approve"></input>
+			<label for="name">Approve Application</label>
+			<br/>			
+			<input type="radio" name="action" value="reject"></input>
+			<label for="name">Reject Application</label>						
+		</div>
+		
+		<div class="large-12 medium-12 columns" th:if="${reviewResourceModel.submissionApplication.isApproved()}">
+			<input type="checkbox" name="action" value="receive"></input>
+			<label for="name">Animal Received</label>				
+		</div>
+		
+		<div class="large-12 medium-12 columns" th:if="${reviewResourceModel.submissionApplication.isApproved()}">
+			<table>
+	        	<tr>
+	        		<th>Select</th>
+			        <th>Facility Number</th>
+			        <th>Building</th>
+
+	        	</tr>
+	        	<tr th:each="fac : ${reviewResourceModel.facilities}">
+	        		
+	        		<td><input type="radio" name="facilityId" th:value="${fac.id}"></input></td>
+			        <td th:text="${fac.id}"></td>
+			        <td th:text="${fac.building}"></td>
+	        	</tr>
+			</table>
+		</div>
+		
+		<div class="large-12 medium-12 columns">
+			<a> <button class="small button" type="submit">Submit</button></a><br/>
+			<a> <button class="small alert button" type="reset">Cancel</button></a><br/>
+		</div>
+		
+	</div>
+	</div>
+	<!-- end Buttons Column -->
+	  
+
+	  
+	  
+<!-- end group of columns -->		
+</div>
+			
+		</form>
+    </div>
+  </body>
+</html>

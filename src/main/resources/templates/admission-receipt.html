@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <title>Admission Receipt</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  </head>
+  <body>
+    <p th:text="${user.first_name} + ' ' + ${user.last_name} + ','"></p>
+    <p th:text="${animal.name} + ' has been located into one of our facilities'"></p>
+	<p>-Pet Hospital</p>
+  </body>
+</html>

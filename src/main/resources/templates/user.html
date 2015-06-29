@@ -1,0 +1,133 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<title>PAO | User</title>
+
+ 	<!-- header that links to foundation css -->
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../static/foundation/css/foundation.css" />
+    <script src="../static/foundation/js/vendor/modernizr.js"></script>
+	<!-- end of header that links to foundation css -->
+
+</head>
+
+
+<body>
+
+	<form th:action="@{/user{id}(id=(${user.id != null} ? '/' + ${user.id} : ''))}" th:object="${user}" method="post">
+		<ul th:if="${#fields.hasErrors('*')}">
+			<li th:each="err : ${#fields.errors('*')}" th:text="${err}">Input
+				is incorrect</li>
+		</ul>
+		
+		<div class="row"> <!-- header -->
+     	<div class="large-12 columns">
+		<p>User Signup</p>
+		<hr /> <!-- this is just a line -->
+      	</div>
+   		</div> <!-- end header -->
+
+ <!-- this is the start of the group of columns -->		
+<div class="row">
+      <div class="large-8 medium-8 columns"> <!--Fields Column -->
+	  
+		<!-- Login Information -->
+		<fieldset>
+			<legend>Login information:</legend>
+			<div class="row">
+			<div class="large-7 medium-7 columns">
+				<label for="email">Email Address<input required="required"
+					id="email" type="email" th:field="*{email}" />
+				</label>
+			</div>
+			
+			<div class="large-5 medium-5 columns">
+				<label for="password">Password<input id="password"
+					type="password" th:field="*{passwordHolder}" />
+				</label>
+			</div>
+			</div>
+
+		</fieldset>
+		
+		<fieldset>
+			<legend>Name</legend>
+			
+			<div class="row">
+			<div class="large-6 medium-6 columns">
+				<label for="firstName">First<input required="required"
+					id="firstName" type="text" th:field="*{first_name}" />
+				</label>
+			</div>
+			
+			<div class="large-6 medium-6 columns">
+				<label for="lastName">Last<input required="required"
+					id="lastName" type="text" th:field="*{last_name}" />
+				</label>
+			</div>
+			</div>
+			
+		</fieldset>
+		
+		<fieldset>
+			<legend>Contact Information</legend>
+			
+			<div class="row">
+			<div class="large-12 medium-12 columns">
+				<label for="street">Street Address <input
+					required="required" id="street" type="text" th:field="*{street}" />
+				</label>
+			</div>
+			
+			<div class="large-6 medium-6 columns">
+				<label for="city">City <input required="required" id="city"
+					type="text" th:field="*{city}" />
+				</label>
+			</div>
+			
+			<div class="large-2 medium-2 columns">
+				<label for="state">State <input required="required"
+					id="state" type="text" th:field="*{state}" />
+				</label>
+			</div>
+			
+			<div class="large-4 medium-4 columns">
+				<label for="zipcode">Zip Code <input required="required"
+					id="zipcode" type="text" th:field="*{zip}" />
+				</label>
+			</div>
+			
+			</div>
+			<div class="large-6 medium-6 columns">
+				<label for="phone">Phone Number <input required="required"
+					id="phone" type="text" th:field="*{phone}" />
+				</label>
+			<div>
+			</div>
+			</div>
+		
+		</fieldset>
+      
+	  <!-- end fields column -->
+	  </div>
+	  
+	<!--Buttons Column -->
+    <div class="large-4 medium-4 columns">
+
+	<a> <button class="small button" type="submit">Submit</button></a><br/>
+	<a> <button class="small alert button" type="reset" >Cancel</button></a><br/>
+
+	</div>
+	<!-- end Buttons Column -->
+	  
+
+	  
+	  
+<!-- end group of columns -->		
+</div>
+	
+</form>
+</body>
+</html>

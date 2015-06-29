@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <title>Acceptance Memo</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  </head>
+  <body>
+	<p th:text="${user.first_name} + ' ' + ${user.last_name} + ','"></p>
+    <p th:text="'This pet hospital would like to inform you that your application for ' + ${animal.name} + ' has been approved'"></p>
+	<p>-Pet Hospital</p>
+  </body>
+</html>

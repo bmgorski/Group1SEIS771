@@ -1,0 +1,130 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+	<title>PAO | Submit</title>
+
+ 	<!-- header that links to foundation css -->
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../static/foundation/css/foundation.css" />
+    <script src="../static/foundation/js/vendor/modernizr.js"></script>
+	<!-- end of header that links to foundation css -->
+
+</head>
+
+
+<body>
+	<header>
+		<nav sec:authorize="hasRole('AUTHENTICATED_USER_AUTHORITY')">
+			<a href="../homepage" class="small button">Home</a>
+			<a sec:authorize="hasAnyRole('customer','employee','veterinarian')" href="submit" class="small button">Submit pet for adoption</a>
+			<a sec:authorize="hasAnyRole('employee')" href="view-intake-submissions" class="small button">View Intake Submissions</a>
+			<a sec:authorize="hasAnyRole('employee','veterinarian')" href="animal-list" class="small button">Animal Care Record</a>
+		</nav>
+	</header>
+	<form action="/submit_application.html" method="post">
+		<div class="row"> <!-- header -->
+     	<div class="large-12 columns">
+		<p>Header</p>
+		<hr /> <!-- this is just a line -->
+      	</div>
+   		</div> <!-- end header -->
+
+ <!-- this is the start of the group of columns -->		
+<div class="row">
+      <div class="large-8 medium-8 columns"> <!--Fields Column -->
+	 </div> 
+		<fieldset>
+			<legend>Animal Information:</legend>
+			<div class="row">
+			<div class="large-7 medium-7 columns">
+				<label for="name">Name<input required="required"
+				name="name"	id="name" type="text" />
+				</label>
+			</div>
+			
+			<div class="large-5 medium-5 columns">
+				<label for="animal_type">Animal Type<input id="animal_type"
+				name="animal_type" type="text"/>
+				</label>
+			</div>
+			</div>
+
+			<div class="row">
+			<div class="large-6 medium-6 columns">
+				<label for="birthdate">Date of Birth<input required="required"
+				name="birthdate" id="birthdate" type="date" />
+				</label>
+			</div>
+			</div>
+			
+			<div class="row">
+			<div class="large-12 medium-12 columns">
+				<label for="street">Weight <input
+					required="required" id="weight" name="weight" type="text" />
+				</label>
+			</div>
+			</div>
+			
+			<div class="large-6 medium-6 columns">
+				<label for="city">Notes <textarea name="notes"
+					></textarea>
+				</label>
+			</div>
+			
+			<div class="large-2 medium-2 columns">
+				<label for="breed">Breed<input required="required"
+				name="breed" id="breed" type="text" />
+				</label>
+			</div>
+			
+			<div class="large-4 medium-4 columns">
+				<label for="animal_size">Size<input required="required"
+				name="animal_size"	id="animal_size" type="text" />
+				</label>
+			</div>
+			
+			 <input value = "6"
+				name="facility_id"	id="facility_id" type="hidden" />
+				
+				<input value = "6"
+				name="customer_id"	id="customer_id" type="hidden" />
+				<div class="row">
+			<div class="large-6 medium-6 columns">
+				<label for="date_submitted">Date Submitted<input required="required"
+				name="date_submitted" id="date_submitted" type="date" />
+				</label>
+			</div>
+			<div class="large-4 medium-4 columns">
+				<label for="reported_condition">Report Condition<input 
+				name="reported_condition"	id="reported_condition" type="text"  />
+				</label>
+			</div>
+			<div class="large-4 medium-4 columns">
+				<label for="requests">Requests<input
+				name="requests"	id="requests" type="text"/>
+				</label>
+			</div>
+			</div>
+		</fieldset>
+	  <!-- end fields column -->
+	  
+	<!--Buttons Column -->
+    <div class="large-4 medium-4 columns">
+
+	<a> <button class="small button" id="submit" type="submit">Submit</button></a><br/>
+	<a> <button class="small alert button" type="reset" >Cancel</button></a><br/>
+
+	</div>
+	<!-- end Buttons Column -->
+	  
+
+	  
+	  
+<!-- end group of columns -->		
+</div>
+	
+</form>
+</body>
+</html>
